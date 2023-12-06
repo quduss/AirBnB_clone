@@ -13,9 +13,7 @@ class BaseModel:
             for key, value in kwargs.items():
                 if key == "id":
                     setattr(self, key, value)
-                elif key == "created_at":
-                    setattr(self, key, datetime.fromisoformat(value))
-                elif key == "updated_at":
+                elif key == "updated_at" or key == "created_at":
                     setattr(self, key, datetime.fromisoformat(value))
 
     def __str__(self):
