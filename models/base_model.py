@@ -12,11 +12,11 @@ class BaseModel:
         if kwargs is not None:
             for key, value in kwargs.items():
                 if key == "id":
-                    self.id = value
+                    setattr(self, key, value)
                 elif key == "created_at":
-                    self.created_at = datetime.fromisoformat(value)
+                    setattr(self, key, datetime.fromisoformat(value))
                 elif key == "updated_at":
-                    self.updated_at = datetime.fromisoformat(value)
+                    setattr(self, key, datetime.fromisoformat(value))
 
     def __str__(self):
         return f"[{type(self).__name__}] ({self.id}) {self.__dict__}"
