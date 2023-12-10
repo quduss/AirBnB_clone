@@ -129,9 +129,6 @@ class HBNBCommand(cmd.Cmd):
                     if args[0] == to_dict["__class__"]:
                         my_list.append(str(storage.all()[key]))
                 print(my_list)
-            elif not args[0]:
-                my_list = list_.instances(my_dict)
-                print(my_list)
             else:
                 cne()
         except IndexError:
@@ -187,6 +184,14 @@ class HBNBCommand(cmd.Cmd):
             reg = re.compile('"([^"]*)"')
             id_ = reg.search(args[1])
             self.do_destroy(f"{args[0]} {id_.group()[1:-1]}")
+        elif args[1].startswith("update("):
+            reg = re.compile('"([^"]*)"')
+            vals = reg.findall(args[1])
+            print(f"{vals[2]}")
+            print(f"{vals[0]}")
+#            str_ = f"{args[0]} {vals[0][1:-1]} {vals[1][1:-1]} {vals[2]}"
+#            self.do_update(f"{args[0]} {vals[0]} {vals[1][1:-1]} {vals[2]}")
+            print(vals)
 
 
 if __name__ == '__main__':
