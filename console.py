@@ -4,6 +4,7 @@
 import cmd
 from models import classes
 from models import storage
+import re
 
 
 def cne():
@@ -179,6 +180,13 @@ class HBNBCommand(cmd.Cmd):
                         count += 1
             print(count)
         elif args[1].startswith("show("):
+#            ids = args[1].split("(")
+            reg = re.compile('"([^"]*)"')
+#            reg = re.compile('^"\s*\w*"\)$')
+            id_ = reg.search(args[1])
+            self.do_show(f"{args[0]} {id_.group()[1:-1]}")
+#            print(id_.group())
+#            print(id_.group()[1:-1])
             pass
 
 if __name__ == '__main__':
