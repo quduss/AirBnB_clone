@@ -2,7 +2,7 @@
 """command line interpreter for testing and debugging"""
 
 import cmd
-from models.base_model import BaseModel
+from models import classes
 from models import storage
 
 
@@ -67,8 +67,8 @@ class HBNBCommand(cmd.Cmd):
         that creates a new BaseModel instance"""
         args_list = line.split()
         try:
-            if args_list[0] == 'BaseModel':
-                my_obj = BaseModel()
+            if args_list[0] in classes:
+                my_obj = classes[args_list[0]]()
                 my_obj.save()
                 print(my_obj.id)
             else:
@@ -80,9 +80,9 @@ class HBNBCommand(cmd.Cmd):
         """displays the string representaion of an instance"""
         args = line.split()
         try:
-            if args[0] == 'BaseModel':
+            if args[0] in classes:
                 try:
-                    key = 'BaseModel' + '.' + args[1]
+                    key = f"{args[0]}.{args[1]}"
                     my_dict = storage.all()
                     if key in my_dict:
                         print(my_dict[key])
@@ -99,9 +99,9 @@ class HBNBCommand(cmd.Cmd):
         """destroys an instance and updates the json file"""
         args = line.split()
         try:
-            if args[0] == 'BaseModel':
+            if args[0] in classes:
                 try:
-                    key = 'BaseModel' + '.' + args[1]
+                    key = f"{args[0]}.{args[1]}"
                     my_dict = storage.all()
                     if key in my_dict:
                         del my_dict[key]
@@ -120,9 +120,16 @@ class HBNBCommand(cmd.Cmd):
         instances"""
         args = line.split()
         my_dict = storage.all()
+        my_list = []
         try:
-            if args[0] == 'BaseModel':
-                my_list = list_instances(my_dict)
+            if args[0] in classes:
+                for key in my_dict:
+                    to_dict = storage.all()[key].to_dict()
+                    if args[0] == to_dict["__class__"]:
+                        my_list.append(str(storage.all()[key]))
+                print(my_list)
+            elif not args[0]:
+                my_list = list_.instances(my_dict)
                 print(my_list)
             else:
                 cne()
@@ -134,9 +141,9 @@ class HBNBCommand(cmd.Cmd):
         """updates an attribute of an instance with a new value"""
         args = line.split()
         try:
-            if args[0] == 'BaseModel':
+            if args[0] in classes:
                 try:
-                    key = args[0] + '.' + args[1]
+                    key = f"{args[0]}.{args[1]}"
                     my_dict = storage.all()
                     if key in my_dict:
                         try:
@@ -159,6 +166,20 @@ class HBNBCommand(cmd.Cmd):
         except IndexError:
             cnm()
 
+    def default(self, line):
+        """Default Method called"""
+        args = line.split(".")
+        if args[1] == "all()":
+            self.do_all(args[0])
+        elif args[1] == "count()":
+            count = 0
+            for key in storage.all().keys():
+                    to_dict = storage.all()[key].to_dict()
+                    if args[0] == to_dict["__class__"]:
+                        count += 1
+            print(count)
+        elif args[1].startswith("show("):
+            pass
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
