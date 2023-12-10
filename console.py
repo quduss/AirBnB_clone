@@ -172,9 +172,9 @@ class HBNBCommand(cmd.Cmd):
         elif args[1] == "count()":
             count = 0
             for key in storage.all().keys():
-                    to_dict = storage.all()[key].to_dict()
-                    if args[0] == to_dict["__class__"]:
-                        count += 1
+                to_dict = storage.all()[key].to_dict()
+                if args[0] == to_dict["__class__"]:
+                    count += 1
             print(count)
         elif args[1].startswith("show("):
             reg = re.compile('"([^"]*)"')
@@ -185,13 +185,33 @@ class HBNBCommand(cmd.Cmd):
             id_ = reg.search(args[1])
             self.do_destroy(f"{args[0]} {id_.group()[1:-1]}")
         elif args[1].startswith("update("):
-            reg = re.compile('"([^"]*)"')
-            vals = reg.findall(args[1])
-            print(f"{vals[2]}")
-            print(f"{vals[0]}")
-#            str_ = f"{args[0]} {vals[0][1:-1]} {vals[1][1:-1]} {vals[2]}"
-#            self.do_update(f"{args[0]} {vals[0]} {vals[1][1:-1]} {vals[2]}")
-            print(vals)
+            reg = re.compile(r'\((.*?)\)')
+            str_ = reg.search(args[1])
+            str_ = str_.group()[1:-1].split(", ")
+            if args[0] in classes:
+                try:
+                    key = f"{args[0]}.{str_[0][1:-1]}"
+                    my_dict = storage.all()
+                    if key in my_dict:
+                        try:
+                            if str_[1]:
+                                try:
+                                    value = str_[2]
+                                    obj = my_dict[key]
+                                    arg1 = f"{str_[1][1:-1]}"
+                                    arg2 = f"{eval(value)}"
+                                    obj.set_attribute(arg1, arg2)
+                                    obj.save()
+                                except IndexError:
+                                    vm()
+                        except IndexError:
+                            anm()
+                    else:
+                        nif()
+                except IndexError:
+                    idm()
+            else:
+                cne()
 
 
 if __name__ == '__main__':
