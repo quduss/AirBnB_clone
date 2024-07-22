@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """FileStorage class definition"""
+import json
 
 
 class FileStorage:
@@ -36,7 +37,6 @@ class FileStorage:
     def reload(self):
         """deserialise the json file back to the __objects dictionary"""
         from models.base_model import BaseModel
-        import json
         from models.user import User
         from models.state import State
         from models.review import Review
