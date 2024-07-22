@@ -1,15 +1,6 @@
 #!/usr/bin/python3
 """FileStorage class definition"""
 
-from models.base_model import BaseModel
-import json
-from models.user import User
-from models.state import State
-from models.review import Review
-from models.place import Place
-from models.city import City
-from models.amenity import Amenity
-
 
 class FileStorage:
     """FileStorage class"""
@@ -65,9 +56,8 @@ class FileStorage:
             with open(type(self).__file_path, 'r', encoding='utf-8') as a_file:
                 convert_dict = json.load(a_file)
             for key, val in convert_dict.items():
-                if val["__class__"] in classes:
-                    cls = classes[val["__class__"]]
-                    obj = cls(**val)
+                cls = classes[val["__class__"]]
+                obj = cls(**val)
                 type(self).__objects[key] = obj
         except FileNotFoundError:
             pass
