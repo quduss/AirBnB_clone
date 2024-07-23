@@ -2,10 +2,26 @@
 """command line interpreter for testing and debugging"""
 
 import cmd
-from models import classes
 from models import storage
 import re
+from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.review import Review
+from models.place import Place
+from models.city import City
+from models.amenity import Amenity
 
+
+classes = {
+        "BaseModel": BaseModel,
+        "User": User,
+        "Review": Review,
+        "Place": Place,
+        "Amenity": Amenity,
+        "State": State,
+        "City": City
+        }
 
 def cne():
     """prints error message"""
