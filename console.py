@@ -141,9 +141,9 @@ class HBNBCommand(cmd.Cmd):
         try:
             if args[0] in classes:
                 for key in my_dict:
-                    to_dict = storage.all()[key].to_dict()
+                    to_dict = my_dict[key].to_dict()
                     if args[0] == to_dict["__class__"]:
-                        my_list.append(str(storage.all()[key]))
+                        my_list.append(str(my_dict[key]))
                 print(my_list)
             else:
                 cne()
