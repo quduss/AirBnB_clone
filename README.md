@@ -1,5 +1,5 @@
 # AirBnB Clone - The Console
-This is the first stage of the AirBnB clone project. It involves developing a console to manage the AirBnB objects. The objects are created from classes (`User`, `State`, `City`, `Place`…) that inherit from a parent class `BaseModel`. The `BaseModel` class handles initialization, serialization, and deserialization of all instances. A simple flow of serialization/deserialization: `Instance <-> Dictionary <-> JSON string <-> file`. The console performs the following operations:
+This is the first stage of the AirBnB clone project. It involves developing a [console](console.py) to manage the AirBnB objects. The objects are created from classes (`User`, `State`, `City`, `Place`…) that inherit from a parent class `BaseModel`. The `BaseModel` class handles initialization, serialization, and deserialization of all instances. A simple flow of serialization/deserialization: `Instance <-> Dictionary <-> JSON string <-> file`. The console performs the following operations:
 - Create a new object (ex: a new `User` or a new `Place`)
 - Retrieve an object from the file
 - Do operations on objects (count, compute stats, etc…)
@@ -20,7 +20,7 @@ This is the first stage of the AirBnB clone project. It involves developing a co
 5. This prompt designates you are in the "HBnB" console. There are a variety of commands available within the console program.
 
 ##### Commands
-    * create - Creates an instance based on given class
+    * create - Creates an instance based on a given class
 
     * destroy - Destroys an object based on class and UUID
 
@@ -28,11 +28,9 @@ This is the first stage of the AirBnB clone project. It involves developing a co
 
     * all - Shows all objects the program has access to, or all objects of a given class
 
-    * update - Updates existing attributes an object based on class name and UUID
+    * update - Updates existing attributes of an object based on the class name and UUID
 
     * quit - Exits the program (EOF will as well)
-
-<br>
 <br>
 <center> <h2>Examples</h2> </center>
 <h3>Primary Command Syntax</h3>
